@@ -7,6 +7,7 @@ import 'package:movie_app/core/reusable_widgets/reusable_widgets.dart';
 import 'package:movie_app/core/state/state.dart';
 import 'package:movie_app/home/presentation/controller/home_controller.dart';
 import 'package:movie_app/home/presentation/screens/custom_widgets.dart';
+import 'package:movie_app/movie_detail/presentation/screens/movie_detail.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
@@ -55,7 +56,8 @@ class HomeScreen extends StatelessWidget {
           topHomeView(url, text, genreNames, context),
           //   Container(padding: EdgeInsets.all(5), child: genres(genreNames)),
           const Padding(padding: EdgeInsets.only(top: 5)),
-          Container(padding: EdgeInsets.all(5), child: ratings(rating, votes))
+          Container(
+              padding: const EdgeInsets.all(5), child: ratings(rating, votes))
         ]);
       }
       if (_controller.stateDetail is LoadingState) {
@@ -96,11 +98,18 @@ class HomeScreen extends StatelessWidget {
 
   Widget popular() {
     return Column(children: [
-      singleListHeader("Popular"),
+      singleListHeader("Popular", () {
+        _controller.onClose();
+        Get.toNamed(MOVIE_CATEGORY_ROUTE, arguments: "popular");
+      }),
       const Padding(padding: EdgeInsets.only(top: 5)),
       Obx(() {
         if (_controller.state1 is FinishedState) {
-          return singleList(_controller.data1);
+          return singleList(_controller.data1, (id, title) {
+            Get.toNamed(MOVIE_DETAILS_ROUTE,
+                arguments: MovieDetailArgument(id, title));
+            _controller.onClose();
+          });
         }
         if (_controller.state1 is LoadingState) {
           return progressBar();
@@ -115,11 +124,18 @@ class HomeScreen extends StatelessWidget {
 
   Widget upcoming() {
     return Column(children: [
-      singleListHeader("Upcoming"),
+      singleListHeader("Upcoming", () {
+        _controller.onClose();
+        Get.toNamed(MOVIE_CATEGORY_ROUTE, arguments: "upcoming");
+      }),
       const Padding(padding: EdgeInsets.only(top: 5)),
       Obx(() {
         if (_controller.state3 is FinishedState) {
-          return singleList(_controller.data3);
+          return singleList(_controller.data3, (id, title) {
+            Get.toNamed(MOVIE_DETAILS_ROUTE,
+                arguments: MovieDetailArgument(id, title));
+            _controller.onClose();
+          });
         }
         if (_controller.state3 is LoadingState) {
           return progressBar();
@@ -134,11 +150,18 @@ class HomeScreen extends StatelessWidget {
 
   Widget inTheatre() {
     return Column(children: [
-      singleListHeader("In Theatre"),
+      singleListHeader("In Theatre", () {
+        _controller.onClose();
+        Get.toNamed(MOVIE_CATEGORY_ROUTE, arguments: "now_playing");
+      }),
       const Padding(padding: EdgeInsets.only(top: 5)),
       Obx(() {
         if (_controller.state2 is FinishedState) {
-          return singleList(_controller.data2);
+          return singleList(_controller.data2, (id, title) {
+            Get.toNamed(MOVIE_DETAILS_ROUTE,
+                arguments: MovieDetailArgument(id, title));
+            _controller.onClose();
+          });
         }
         if (_controller.state2 is LoadingState) {
           return progressBar();

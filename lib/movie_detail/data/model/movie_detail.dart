@@ -1,6 +1,12 @@
 import 'package:movie_app/movie_detail/data/model/genre.dart';
 
-class MovieDetail {
+abstract class AbstractMovieDetail {}
+
+class MovieDetailMiniImpl implements AbstractMovieDetail {
+  MovieDetailMiniImpl.empty();
+}
+
+class MovieDetail implements AbstractMovieDetail {
   int? id;
   String? poster_path;
   String? backdrop_path;

@@ -5,6 +5,7 @@ import 'package:movie_app/home/data/datasources/home_data_source.dart';
 import 'package:movie_app/home/domain/repo/home_repository.dart';
 import 'package:movie_app/home/domain/usecases/home_category_usecase.dart';
 import 'package:movie_app/home/presentation/controller/home_controller.dart';
+import 'package:movie_app/home/presentation/controller/movie_category_controller.dart';
 import 'package:movie_app/movie_detail/data/datasource/movie_detail_datasource.dart';
 import 'package:movie_app/movie_detail/domain/repo/movie_detail_repo.dart';
 import 'package:movie_app/movie_detail/domain/usecases/movie_detail_usease.dart';
@@ -28,9 +29,12 @@ class HomeBindings implements Bindings {
     Get.lazyPut<MovieDetailRepo>(() => MovieDetailRepoImpl(
         datasource: Get.find<MovieDetailDatasource>(), info: info));
     Get.lazyPut<MovieDetailUsecase>(
-        () => MovieDetailUsecase(repo: Get.find<MovieDetailRepo>()));
+        () => MovieDetailUsecaseImpl(repo: Get.find<MovieDetailRepo>()));
     Get.lazyPut<HomeController>(() => HomeController(
         usecase: Get.find<HomeCategoryUsecase>(),
         detailUsecase: Get.find<MovieDetailUsecase>()));
+    Get.lazyPut<MovieCategoryController>(
+      () => MovieCategoryController(usecase: Get.find<HomeCategoryUsecase>()),
+    );
   }
 }

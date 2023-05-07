@@ -1,16 +1,31 @@
 import 'package:either_dart/either.dart';
 import 'package:movie_app/core/failure/failure.dart';
 import 'package:movie_app/core/result/result.dart';
+import 'package:movie_app/movie_detail/data/model/cast.dart';
 import 'package:movie_app/movie_detail/data/model/movie_detail.dart';
+import 'package:movie_app/movie_detail/data/model/tv_detail.dart';
+import 'package:movie_app/movie_detail/data/model/video.dart';
 import 'package:movie_app/movie_detail/domain/repo/movie_detail_repo.dart';
+import 'package:movie_app/movie_detail/domain/repo/tv_detail_repo.dart';
+import 'package:movie_app/movie_detail/domain/usecases/movie_detail_usease.dart';
 
-class MovieDetailUsecase {
-  MovieDetailRepo repo;
+class TvDetailUsecaseImpl {
+  TvDetailRepo repo;
 
-  MovieDetailUsecase({required this.repo});
+  TvDetailUsecaseImpl({required this.repo});
 
   getMovieDetail(
-      int id, Function(Either<Failure, Result<MovieDetail>> b) res) async {
-    await repo.getMovieDetail("tv", id).then((value) => res.call(value));
+      int id, Function(Either<Failure, Result<TvDetail>> b) res) async {
+    await repo.getTvDetail("tv", id).then((value) => res.call(value));
+  }
+
+  getMovieCasts(
+      int id, Function(Either<Failure, Result<List<Cast>>> b) res) async {
+    await repo.getMovieCasts("tv", id).then((value) => res.call(value));
+  }
+
+  getMovieVideos(
+      int id, Function(Either<Failure, Result<List<Video>>> b) res) async {
+    await repo.getMovieVideos("tv", id).then((value) => res.call(value));
   }
 }

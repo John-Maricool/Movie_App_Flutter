@@ -8,25 +8,8 @@ class HomeCategoryUsecase {
   HomeRepository repo;
 
   HomeCategoryUsecase({required this.repo});
-
-  getPopularMovies(int page,
+  getMovieCategory(int page, String type,
       Function(Either<Failure, Result<List<MovieListItemModel>>> b) res) async {
-    await repo
-        .getMovieCategory("popular", page)
-        .then((value) => res.call(value));
-  }
-
-  getUpcomingMovies(int page,
-      Function(Either<Failure, Result<List<MovieListItemModel>>> b) res) async {
-    await repo
-        .getMovieCategory("upcoming", page)
-        .then((value) => res.call(value));
-  }
-
-  getInTheatreMovies(int page,
-      Function(Either<Failure, Result<List<MovieListItemModel>>> b) res) async {
-    await repo
-        .getMovieCategory("now_playing", page)
-        .then((value) => res.call(value));
+    await repo.getMovieCategory(type, page).then((value) => res.call(value));
   }
 }

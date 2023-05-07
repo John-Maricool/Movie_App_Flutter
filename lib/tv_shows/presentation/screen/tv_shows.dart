@@ -8,7 +8,7 @@ import 'package:movie_app/core/error_types/error_types.dart';
 import 'package:movie_app/core/reusable_widgets/curved_image.dart';
 import 'package:movie_app/core/reusable_widgets/reusable_widgets.dart';
 import 'package:movie_app/core/state/state.dart';
-import 'package:movie_app/home/presentation/screens/home.dart';
+import 'package:movie_app/movie_detail/presentation/screens/movie_detail.dart';
 import 'package:movie_app/tv_shows/presentation/controller/tv_list_controller.dart';
 
 class TvShowsScreen extends StatelessWidget {
@@ -35,10 +35,11 @@ class TvShowsScreen extends StatelessWidget {
           List<String?> res = _controller.data.map((obj) => obj.image).toList();
           List<String?> titles =
               _controller.data.map((obj) => obj.title).toList();
-          return showGrid(
-            res,
-            titles,
-          );
+          return showGrid(res, titles, (index) {
+            final id = _controller.data[index].id;
+            Get.toNamed(TV_DETAILS,
+                arguments: MovieDetailArgument(id, titles[index]!));
+          });
         }
         return progressBar();
       }),
@@ -78,7 +79,8 @@ class TvShowsScreen extends StatelessWidget {
     );
   }
 
-  Widget showGrid(List<String?> imageUrls, List<String?> titles) {
+  Widget showGrid(
+      List<String?> imageUrls, List<String?> titles, Function(int) onClick) {
     return GridView.builder(
         clipBehavior: Clip.none,
         itemCount: _controller.isLast == true
@@ -95,9 +97,14 @@ class TvShowsScreen extends StatelessWidget {
             _controller.fetchItems();
             return progressBar();
           } else {
-            return CurvedImage(
-              imageUrl: imageUrls[index],
-              text: titles[index],
+            return GestureDetector(
+              child: CurvedImage(
+                imageUrl: imageUrls[index],
+                text: titles[index],
+              ),
+              onTap: () {
+                onClick(index);
+              },
             );
           }
         });

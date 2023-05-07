@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:movie_app/core/constant.dart';
 import 'package:movie_app/core/constants/route_constants.dart';
+import 'package:movie_app/movie_detail/presentation/screens/movie_detail.dart';
 import 'package:movie_app/movies/presentation/controllers/movie_list_controller.dart';
 import 'package:movie_app/tv_shows/presentation/screen/tv_shows.dart';
 import '../../../core/error_types/error_types.dart';
@@ -35,10 +36,11 @@ class MoviesScreen extends StatelessWidget {
           List<String?> res = _controller.data.map((obj) => obj.image).toList();
           List<String?> titles =
               _controller.data.map((obj) => obj.title).toList();
-          return showGrid(
-            res,
-            titles,
-          );
+          return showGrid(res, titles, (index) {
+            final id = _controller.data[index].id;
+            Get.toNamed(MOVIE_DETAILS_ROUTE,
+                arguments: MovieDetailArgument(id, titles[index]!));
+          });
         }
         return progressBar();
       }),
@@ -78,7 +80,8 @@ class MoviesScreen extends StatelessWidget {
     );
   }
 
-  Widget showGrid(List<String?> imageUrls, List<String?> titles) {
+  Widget showGrid(
+      List<String?> imageUrls, List<String?> titles, Function(int) onClick) {
     return GridView.builder(
         clipBehavior: Clip.none,
         itemCount: _controller.isLast == true
@@ -95,9 +98,14 @@ class MoviesScreen extends StatelessWidget {
             _controller.fetchItems();
             return progressBar();
           } else {
-            return CurvedImage(
-              imageUrl: imageUrls[index],
-              text: titles[index],
+            return GestureDetector(
+              child: CurvedImage(
+                imageUrl: imageUrls[index],
+                text: titles[index],
+              ),
+              onTap: () {
+                onClick(index);
+              },
             );
           }
         });

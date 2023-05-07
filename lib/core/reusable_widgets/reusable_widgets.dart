@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../constant.dart';
 
@@ -98,5 +99,83 @@ PreferredSizeWidget customAppBar(
         size: 17.0,
       ),
     ),
+  );
+}
+
+Widget genres(List<String?> genre) {
+  return Row(
+    children: List.generate(
+      genre.length,
+      (index) => SizedBox(
+        height: 25,
+        child: Row(
+          children: [
+            Container(
+              color: Colors.red,
+              padding: const EdgeInsets.all(2),
+              child: Text(
+                genre[index] ?? "",
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 15),
+            ), // Add spacing between items
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+Widget genresMovieDetail(List<String?>? genre) {
+  return genre != null
+      ? Row(
+          children: List.generate(
+            genre.length,
+            (index) => Row(
+              children: [
+                Text(
+                  "${genre[index]}/",
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                  ),
+                ), // Add spacing between items
+              ],
+            ),
+          ),
+        )
+      : Container();
+}
+
+Widget ratings(double? rating, int? votes) {
+  return Row(
+    children: [
+      RatingBar.builder(
+        itemSize: 13,
+        initialRating: rating ?? 0,
+        minRating: 0,
+        direction: Axis.horizontal,
+        allowHalfRating: true,
+        itemCount: 5,
+        itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+        itemBuilder: (context, _) => const Icon(
+          Icons.star,
+          color: Colors.red,
+        ),
+        onRatingUpdate: (rating) {
+          print(rating);
+        },
+      ),
+      const Padding(padding: EdgeInsets.only(left: 10)),
+      Text(
+        "$votes votes",
+        style: const TextStyle(color: whiteColor, fontSize: 14),
+      )
+    ],
   );
 }

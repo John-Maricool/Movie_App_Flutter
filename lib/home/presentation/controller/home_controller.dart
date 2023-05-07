@@ -38,7 +38,7 @@ class HomeController extends GetxController {
 
   getPopularMovies() {
     _state1.value = LoadingState();
-    usecase.getPopularMovies(1, (result) {
+    usecase.getMovieCategory(1, "popular", (result) {
       if (result.isLeft) {
         _state1.value = ErrorState(errorType: result.left.error);
       } else {
@@ -54,7 +54,7 @@ class HomeController extends GetxController {
 
   getUpcomingMovies() {
     _state2.value = LoadingState();
-    usecase.getUpcomingMovies(1, (result) {
+    usecase.getMovieCategory(1, "upcoming", (result) {
       if (result.isLeft) {
         _state2.value = ErrorState(errorType: result.left.error);
       } else {
@@ -67,7 +67,7 @@ class HomeController extends GetxController {
 
   getInTheatreMovies() {
     _state3.value = LoadingState();
-    usecase.getInTheatreMovies(1, (result) {
+    usecase.getMovieCategory(1, "now_playing", (result) {
       if (result.isLeft) {
         _state3.value = ErrorState(errorType: result.left.error);
       } else {
@@ -84,7 +84,7 @@ class HomeController extends GetxController {
       if (result.isLeft) {
         _stateDetail.value = ErrorState(errorType: result.left.error);
       } else {
-        _detail.value = result.right.value;
+        _detail.value = result.right.value as MovieDetail;
         _stateDetail.value = FinishedState();
       }
     });

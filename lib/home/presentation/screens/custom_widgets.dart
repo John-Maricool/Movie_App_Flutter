@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:movie_app/core/constant.dart';
 import 'package:movie_app/core/data_model/movei_list_item_model.dart';
 import 'package:movie_app/core/reusable_widgets/curved_image.dart';
+import 'package:movie_app/core/reusable_widgets/reusable_widgets.dart';
 
-Widget singleListHeader(String category) {
+Widget singleListHeader(String category, VoidCallback onClick) {
   return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
     Text(
       category,
@@ -16,12 +16,15 @@ Widget singleListHeader(String category) {
         "show all",
         style: TextStyle(color: whiteColor, fontSize: 13),
       ),
-      onTap: () {},
+      onTap: () {
+        onClick();
+      },
     )
   ]);
 }
 
-Widget singleList(List<MovieListItemModel> movies) {
+Widget singleList(
+    List<MovieListItemModel> movies, Function(int, String) onClick) {
   return SizedBox(
       height: 150,
       child: ListView.separated(
@@ -32,7 +35,14 @@ Widget singleList(List<MovieListItemModel> movies) {
           itemBuilder: (context, index) {
             List<String?> res = movies.map((obj) => obj.image).toList();
             List<String?> titles = movies.map((obj) => obj.title).toList();
-            return CurvedImage(imageUrl: res[index], text: titles[index]);
+            return GestureDetector(
+              onTap: () {
+                final id = movies[index].id;
+                final title = movies[index].title;
+                onClick(id, title!);
+              },
+              child: CurvedImage(imageUrl: res[index], text: titles[index]),
+            );
           }));
 }
 
@@ -60,61 +70,4 @@ Widget topHomeView(
             )),
         Positioned(bottom: 1, child: genres(genre))
       ]));
-}
-
-Widget genres(List<String?> genre) {
-  return Row(
-    children: List.generate(
-      genre.length,
-      (index) => SizedBox(
-        height: 25,
-        child: Row(
-          children: [
-            Container(
-              color: Colors.red,
-              padding: const EdgeInsets.all(2),
-              child: Text(
-                genre[index] ?? "",
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                ),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 15),
-            ), // Add spacing between items
-          ],
-        ),
-      ),
-    ),
-  );
-}
-
-Widget ratings(double? rating, int? votes) {
-  return Row(
-    children: [
-      RatingBar.builder(
-        itemSize: 13,
-        initialRating: rating ?? 0,
-        minRating: 0,
-        direction: Axis.horizontal,
-        allowHalfRating: true,
-        itemCount: 5,
-        itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-        itemBuilder: (context, _) => const Icon(
-          Icons.star,
-          color: Colors.red,
-        ),
-        onRatingUpdate: (rating) {
-          print(rating);
-        },
-      ),
-      const Padding(padding: EdgeInsets.only(left: 10)),
-      Text(
-        "$votes votes",
-        style: const TextStyle(color: whiteColor, fontSize: 14),
-      )
-    ],
-  );
 }
