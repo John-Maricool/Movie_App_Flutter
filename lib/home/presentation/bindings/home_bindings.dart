@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:movie_app/home/data/datasources/home_data_source.dart';
 import 'package:movie_app/home/domain/repo/home_repository.dart';
 import 'package:movie_app/home/domain/usecases/home_category_usecase.dart';
@@ -20,7 +21,7 @@ class HomeBindings implements Bindings {
   }
 
   _getMovieBinding(HttpClient client, NetworkInfo info) {
-    Get.lazyPut<HomeDataSource>(() => HomeDataSourceImpl(client: client));
+    Get.lazyPut<HomeDataSource>(() => HomeDataSourceImpl(client: Client()));
     Get.lazyPut<HomeRepository>(() =>
         HomeRepositoryImpl(datasource: Get.find<HomeDataSource>(), info: info));
     Get.lazyPut<HomeCategoryUsecase>(

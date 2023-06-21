@@ -54,7 +54,6 @@ class HomeScreen extends StatelessWidget {
         final votes = _controller.detail.vote_count;
         return Column(children: [
           topHomeView(url, text, genreNames, context),
-          //   Container(padding: EdgeInsets.all(5), child: genres(genreNames)),
           const Padding(padding: EdgeInsets.only(top: 5)),
           Container(
               padding: const EdgeInsets.all(5), child: ratings(rating, votes))

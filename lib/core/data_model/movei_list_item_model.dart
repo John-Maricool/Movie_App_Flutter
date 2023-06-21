@@ -1,9 +1,13 @@
 class MovieListItemModel {
-  String? title;
-  String? image;
-  int id;
-  MovieListItemModel(
-      {required this.id, required this.title, required this.image});
+  final String title;
+  final String image;
+  final int id;
+
+  MovieListItemModel({
+    required this.id,
+    required this.title,
+    required this.image,
+  });
 
   factory MovieListItemModel.toMovieModel(Map<String, dynamic> json) {
     return MovieListItemModel(

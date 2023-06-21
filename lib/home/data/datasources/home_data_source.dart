@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:movie_app/core/constants/string_constants.dart';
 import 'package:movie_app/core/data_model/movei_list_item_model.dart';
-import 'dart:io';
 import 'package:http/http.dart' as http;
 
 abstract class HomeDataSource {
@@ -9,14 +8,14 @@ abstract class HomeDataSource {
 }
 
 class HomeDataSourceImpl implements HomeDataSource {
-  final HttpClient client;
+  final http.Client client;
 
   HomeDataSourceImpl({required this.client});
 
   @override
   Future<List<MovieListItemModel>> getMovieCategory(
       String category, int page) async {
-    final response = await http.get(
+    final response = await client.get(
       Uri.parse("${BASE_URL}movie/$category?api_key=$API_KEY&page=$page"),
     );
 

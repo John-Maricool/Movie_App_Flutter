@@ -2,7 +2,7 @@ mixin ValidatorMixin {
   String getEmailErrors(String email) {
     if (!email.contains('@')) {
       return "Invalid Email format missing @";
-    } else if (email.length < 5 || email.isEmpty) {
+    } else if (email.length < 7 || email.isEmpty) {
       return "This is not an email";
     } else {
       return "";
@@ -20,9 +20,6 @@ mixin ValidatorMixin {
   String getInputFieldErrors(String name) {
     if (name.length < 4) {
       return "length is too short";
-    }
-    if (name.isEmpty) {
-      return "This field cannot be empty";
     } else {
       return "";
     }

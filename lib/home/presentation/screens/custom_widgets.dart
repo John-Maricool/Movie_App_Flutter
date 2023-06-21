@@ -39,7 +39,7 @@ Widget singleList(
               onTap: () {
                 final id = movies[index].id;
                 final title = movies[index].title;
-                onClick(id, title!);
+                onClick(id, title);
               },
               child: CurvedImage(imageUrl: res[index], text: titles[index]),
             );
