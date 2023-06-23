@@ -5,8 +5,7 @@ class DummyValidator with ValidatorMixin {}
 
 void main() {
   group('ValidatorMixin tests', () {
-    final validator =
-        DummyValidator(); // A class that includes the ValidatorMixin
+    final validator = DummyValidator();
 
     test('getEmailErrors returns error for invalid email format', () {
       final email = 'example.com';
@@ -57,6 +56,3 @@ void main() {
     });
   });
 }
-
-// A class that includes the ValidatorMixin for testing purposes
-class _Validator with ValidatorMixin {}

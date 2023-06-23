@@ -29,7 +29,9 @@ class EmptyListError extends ErrorType implements Equatable {
 
 class ServerError extends ErrorType implements Equatable {
   @override
-  List<Object> get props => [this];
+  String get errMessage => "Server Error";
+  @override
+  List<Object> get props => [errMessage];
 
   @override
   bool? get stringify => true;
