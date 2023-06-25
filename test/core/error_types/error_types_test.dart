@@ -33,9 +33,9 @@ void main() {
     });
 
     group('ServerError tests', () {
-      test('ServerError props should contain self', () {
+      test('Server error props should contain errMessage', () {
         final error = ServerError();
-        expect(error.props, [error]);
+        expect(error.props, [error.errMessage]);
       });
 
       test('ServerError stringify should be true', () {

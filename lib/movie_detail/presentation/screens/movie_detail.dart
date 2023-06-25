@@ -40,7 +40,7 @@ class MovieDetailScreen extends StatelessWidget {
                       detail.release_date,
                       detail.vote_average,
                       detail.vote_count,
-                      detail.genres.map((genre) => genre?.name).toList(),
+                      detail.genres!.map((genre) => genre.name).toList(),
                       detail.overview);
                 }
                 if (_controller.stateDetail is LoadingState) {

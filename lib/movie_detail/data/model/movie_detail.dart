@@ -13,12 +13,11 @@ class MovieDetail implements AbstractMovieDetail {
   String? title;
   int? vote_count;
   double? vote_average;
-  List<int>? genre_ids;
   String? original_language;
   String? release_date;
   int? runtime;
   String? overview;
-  List<Genre?> genres = List.empty();
+  List<Genre>? genres = List.empty();
 
   MovieDetail(
       {required this.id,
@@ -26,13 +25,18 @@ class MovieDetail implements AbstractMovieDetail {
       required this.backdrop_path,
       required this.title,
       required this.vote_count,
-      required this.genre_ids,
       required this.vote_average,
       required this.original_language,
       required this.release_date,
       required this.runtime,
       required this.genres,
       required this.overview});
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is MovieDetail && id == other.id;
+  }
 
   MovieDetail.empty();
 
@@ -49,7 +53,6 @@ class MovieDetail implements AbstractMovieDetail {
         runtime: json['runtime'],
         genres: Genre.convertToGenreList(json['genres']),
         vote_average: json['vote_average'],
-        genre_ids: json['genre_ids'],
         overview: json['overview']);
   }
 }

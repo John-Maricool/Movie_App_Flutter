@@ -1,8 +1,8 @@
 class Cast {
-  double id = 0;
+  int id = 0;
   String name = "";
-  String profile_path = "";
-  String known_for_department = "";
+  String? profile_path = "";
+  String? known_for_department = "";
 
   Cast(
       {required this.id,
@@ -12,11 +12,18 @@ class Cast {
 
   Cast.empty();
 
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is Cast && id == other.id;
+  }
+
   factory Cast.toCast(Map<String, dynamic> json) {
-    final id = json['id'].toDouble();
+    final id = json['id'];
     final name = json['name'];
-    final profilePath =
-        "https://image.tmdb.org/t/p/w185" + json['profile_path'];
+    final profilePath = json['profile_path'] != null
+        ? "https://image.tmdb.org/t/p/w185" + json['profile_path']
+        : null;
     final known_for_department = json['known_for_department'];
 
     return Cast(

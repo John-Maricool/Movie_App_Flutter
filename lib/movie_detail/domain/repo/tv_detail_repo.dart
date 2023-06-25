@@ -11,10 +11,8 @@ import 'package:movie_app/movie_detail/data/model/video.dart';
 
 abstract class TvDetailRepo {
   Future<Either<Failure, Result<TvDetail>>> getTvDetail(String type, int id);
-  Future<Either<Failure, Result<List<Cast>>>> getMovieCasts(
-      String type, int id);
-  Future<Either<Failure, Result<List<Video>>>> getMovieVideos(
-      String type, int id);
+  Future<Either<Failure, Result<List<Cast>>>> getTvCasts(String type, int id);
+  Future<Either<Failure, Result<List<Video>>>> getTvVideos(String type, int id);
 }
 
 class TvDetailRepoImpl implements TvDetailRepo {
@@ -38,7 +36,7 @@ class TvDetailRepoImpl implements TvDetailRepo {
   }
 
   @override
-  Future<Either<Failure, Result<List<Cast>>>> getMovieCasts(
+  Future<Either<Failure, Result<List<Cast>>>> getTvCasts(
       String type, int id) async {
     if (await info.isConnected) {
       try {
@@ -53,7 +51,7 @@ class TvDetailRepoImpl implements TvDetailRepo {
   }
 
   @override
-  Future<Either<Failure, Result<List<Video>>>> getMovieVideos(
+  Future<Either<Failure, Result<List<Video>>>> getTvVideos(
       String type, int id) async {
     if (await info.isConnected) {
       try {

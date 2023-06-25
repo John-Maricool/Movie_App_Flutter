@@ -12,12 +12,14 @@ abstract class MovieDetailDatasource<T> {
 }
 
 class MovieDetailDatasourceImpl implements MovieDetailDatasource<MovieDetail> {
+  final http.Client client;
+
+  MovieDetailDatasourceImpl({required this.client});
   @override
   Future<MovieDetail> getMovieDetail(int id, String type) async {
-    final response = await http.get(
+    final response = await client.get(
       Uri.parse("$BASE_URL$type/$id?api_key=$API_KEY"),
     );
-
     if (response.statusCode == 200) {
       final result = json.decode(response.body);
       return MovieDetail.toMovieModel(result);
@@ -28,12 +30,13 @@ class MovieDetailDatasourceImpl implements MovieDetailDatasource<MovieDetail> {
 
   @override
   Future<List<Cast>> getCast(int id, String type) async {
-    final response = await http.get(
+    final response = await client.get(
       Uri.parse("$BASE_URL$type/$id/credits?api_key=$API_KEY"),
     );
 
     if (response.statusCode == 200) {
       final result = json.decode(response.body);
+      print(result);
       final list = convertToCastList(result['cast']);
       return list;
     } else {
@@ -59,7 +62,6 @@ class MovieDetailDatasourceImpl implements MovieDetailDatasource<MovieDetail> {
     try {
       for (var element in json) {
         final video = Video.fromJson(element);
-        print(video.id);
         model.add(video);
       }
       return model;
@@ -70,12 +72,13 @@ class MovieDetailDatasourceImpl implements MovieDetailDatasource<MovieDetail> {
 
   @override
   Future<List<Video>> getVideos(int id, String type) async {
-    final response = await http.get(
+    final response = await client.get(
       Uri.parse("$BASE_URL$type/$id/videos?api_key=$API_KEY"),
     );
 
     if (response.statusCode == 200) {
       final result = json.decode(response.body);
+      print(result);
       return convertToVideoList(result['results']);
     } else {
       throw Exception();

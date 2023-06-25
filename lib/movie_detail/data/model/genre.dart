@@ -1,6 +1,6 @@
 class Genre {
-  int? id;
-  String? name;
+  int id;
+  String name;
 
   Genre({required this.id, required this.name});
 
@@ -10,7 +10,7 @@ class Genre {
       name: json['name'],
     );
   }
-  static List<Genre?> convertToGenreList(List<dynamic> json) {
+  static List<Genre> convertToGenreList(List<dynamic> json) {
     List<Genre> model = [];
     for (var element in json) {
       model.add(Genre.toGenreModel(element));

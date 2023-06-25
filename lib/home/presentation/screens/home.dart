@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _controller.getPopularMovies();
-    _controller.getInTheatreMovies();
+    _controller.getTopRatedMovies();
     _controller.getUpcomingMovies();
     return Scaffold(
       backgroundColor: blackColor,
@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
                         const Padding(padding: EdgeInsets.only(top: 10)),
                         inTheatre(),
                         const Padding(padding: EdgeInsets.only(top: 10)),
-                        upcoming()
+                        topRated()
                       ]))))
         ],
       ),
@@ -49,7 +49,7 @@ class HomeScreen extends StatelessWidget {
         final url = _controller.detail.backdrop_path;
         final text = _controller.detail.title;
         final genre = _controller.detail.genres;
-        final genreNames = genre.map((genre) => genre?.name).toList();
+        final genreNames = genre!.map((genre) => genre.name).toList();
         final rating = _controller.detail.vote_average;
         final votes = _controller.detail.vote_count;
         return Column(children: [
@@ -121,11 +121,11 @@ class HomeScreen extends StatelessWidget {
     ]);
   }
 
-  Widget upcoming() {
+  Widget topRated() {
     return Column(children: [
       singleListHeader("Upcoming", () {
         _controller.onClose();
-        Get.toNamed(MOVIE_CATEGORY_ROUTE, arguments: "upcoming");
+        Get.toNamed(MOVIE_CATEGORY_ROUTE, arguments: "top_rated");
       }),
       const Padding(padding: EdgeInsets.only(top: 5)),
       Obx(() {

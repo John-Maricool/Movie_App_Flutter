@@ -12,12 +12,22 @@ class CurvedImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       Flexible(
-          child: Image.network(
-        imageUrl!,
-        width: 90,
-        height: 120,
-        fit: BoxFit.cover,
-      )),
+          child: imageUrl != null
+              ? Image.network(
+                  imageUrl!,
+                  width: 90,
+                  height: 120,
+                  fit: BoxFit.cover,
+                )
+              : Container(
+                  width: 90,
+                  alignment: Alignment.center,
+                  height: 120,
+                  child: const Text(
+                    "No Image",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                )),
       const Padding(padding: EdgeInsets.only(top: 5)),
       text != null
           ? SizedBox(

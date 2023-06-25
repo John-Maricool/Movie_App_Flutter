@@ -15,11 +15,11 @@ class SingleCastController extends GetxController {
   final _stateDetail = const State().obs;
   State get stateDetail => _stateDetail.value;
 
-  setId(double id) {
+  setId(int id) {
     _getCastDetail(id);
   }
 
-  _getCastDetail(double id) {
+  _getCastDetail(int id) {
     _stateDetail.value = LoadingState();
     usecase.getCastDetails(id, (result) {
       if (result.isLeft) {

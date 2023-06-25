@@ -132,7 +132,7 @@ Widget showCredits(List<MovieListItemModel>? images) {
 
 class ScreenArguments {
   final String title;
-  final double id;
+  final int id;
 
   ScreenArguments(this.title, this.id);
 }

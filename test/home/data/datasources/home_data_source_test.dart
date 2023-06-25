@@ -25,7 +25,7 @@ void main() {
     test('should return a list of movie items when API call is successful',
         () async {
       final mockResponse = Response(
-          '{"results": [{"id": 1, "title": "Movie 1", "poster_path": "path"}, {"id": 2, "title": "Movie 2", "poster_path": "path"}]}',
+          '{"results": [{"id": 1, "title": "Movie 1", "poster_path": ""}, {"id": 2, "title": "Movie 2", "poster_path": "path"}]}',
           200);
       when(mockNetworkClient.get(
               Uri.parse("${BASE_URL}movie/popular?api_key=$API_KEY&page=1")))

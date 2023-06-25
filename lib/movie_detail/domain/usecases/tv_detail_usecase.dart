@@ -14,18 +14,15 @@ class TvDetailUsecaseImpl {
 
   TvDetailUsecaseImpl({required this.repo});
 
-  getMovieDetail(
-      int id, Function(Either<Failure, Result<TvDetail>> b) res) async {
-    await repo.getTvDetail("tv", id).then((value) => res.call(value));
+  getMovieDetail(int id, Function(Either<Failure, Result<TvDetail>> b) res) {
+    repo.getTvDetail("tv", id).then((value) => res.call(value));
   }
 
-  getMovieCasts(
-      int id, Function(Either<Failure, Result<List<Cast>>> b) res) async {
-    await repo.getMovieCasts("tv", id).then((value) => res.call(value));
+  getMovieCasts(int id, Function(Either<Failure, Result<List<Cast>>> b) res) {
+    repo.getTvCasts("tv", id).then((value) => res.call(value));
   }
 
-  getMovieVideos(
-      int id, Function(Either<Failure, Result<List<Video>>> b) res) async {
-    await repo.getMovieVideos("tv", id).then((value) => res.call(value));
+  getMovieVideos(int id, Function(Either<Failure, Result<List<Video>>> b) res) {
+    repo.getTvVideos("tv", id).then((value) => res.call(value));
   }
 }

@@ -9,8 +9,8 @@ class SingleCastDetailsUsecase {
 
   SingleCastDetailsUsecase({required this.repo});
 
-  getCastDetails(double id,
-      Function(Either<Failure, Result<SingleCastModel>> b) res) async {
+  getCastDetails(
+      int id, Function(Either<Failure, Result<SingleCastModel>> b) res) async {
     await repo.getCastDetails(id).then((value) => res.call(value));
   }
 }

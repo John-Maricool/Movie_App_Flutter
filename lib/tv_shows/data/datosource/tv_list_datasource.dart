@@ -9,7 +9,7 @@ abstract class TvListDataSource {
 }
 
 class TvListDataSourceImpl implements TvListDataSource {
-  final HttpClient client;
+  final http.Client client;
 
   TvListDataSourceImpl({required this.client});
 

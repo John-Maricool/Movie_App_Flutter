@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:movie_app/movies/data/datasources/movie_list_datasource.dart';
 import 'package:movie_app/movies/domain/repository/movie_list_repository.dart';
 import 'package:movie_app/movies/domain/usecase/movie_list_usecase.dart';
@@ -14,13 +15,12 @@ import '../../../core/network/network_info.dart';
 class TvListBindings implements Bindings {
   @override
   void dependencies() {
-    HttpClient client = Get.find<HttpClient>();
     NetworkInfo info = Get.find<NetworkInfo>();
-    _getMovieBinding(client, info);
+    _getMovieBinding(info);
   }
 
-  _getMovieBinding(HttpClient client, NetworkInfo info) {
-    Get.lazyPut<TvListDataSource>(() => TvListDataSourceImpl(client: client));
+  _getMovieBinding(NetworkInfo info) {
+    Get.lazyPut<TvListDataSource>(() => TvListDataSourceImpl(client: Client()));
     Get.lazyPut<TvListRepository>(() => TvListRepositoryImpl(
         datasource: Get.find<TvListDataSource>(), info: info));
     Get.lazyPut<TvListUsecase>(

@@ -21,7 +21,6 @@ class HomeController extends GetxController {
 
   final RxBool isLast = false.obs;
   final RxInt currentPage = 1.obs;
-  // ignore: invalid_use_of_protected_member
   List<MovieListItemModel> get data1 => _data1.value;
   List<MovieListItemModel> get data2 => _data2.value;
   List<MovieListItemModel> get data3 => _data3.value;
@@ -65,13 +64,12 @@ class HomeController extends GetxController {
     });
   }
 
-  getInTheatreMovies() {
+  getTopRatedMovies() {
     _state3.value = LoadingState();
-    usecase.getMovieCategory(1, "now_playing", (result) {
+    usecase.getMovieCategory(1, "top_rated", (result) {
       if (result.isLeft) {
         _state3.value = ErrorState(errorType: result.left.error);
       } else {
-        //  currentPage.value += 1;
         _data3.value = result.right.value;
         _state3.value = FinishedState();
       }
@@ -84,7 +82,7 @@ class HomeController extends GetxController {
       if (result.isLeft) {
         _stateDetail.value = ErrorState(errorType: result.left.error);
       } else {
-        _detail.value = result.right.value as MovieDetail;
+        _detail.value = result.right.value;
         _stateDetail.value = FinishedState();
       }
     });

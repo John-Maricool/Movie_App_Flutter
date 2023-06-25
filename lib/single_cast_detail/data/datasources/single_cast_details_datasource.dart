@@ -7,12 +7,12 @@ import 'package:http/http.dart' as http;
 import 'package:movie_app/movie_detail/data/model/video.dart';
 
 abstract class SingleCastDetailsDatasource {
-  Future<SingleCastModel> getCastDetails(double id);
+  Future<SingleCastModel> getCastDetails(int id);
 }
 
 class SingleCastDetailsDatasourceImpl implements SingleCastDetailsDatasource {
   @override
-  Future<SingleCastModel> getCastDetails(double id) async {
+  Future<SingleCastModel> getCastDetails(int id) async {
     print("The id is $id");
     final personDetails = await http.get(
       Uri.parse("${BASE_URL}person/$id?api_key=$API_KEY"),

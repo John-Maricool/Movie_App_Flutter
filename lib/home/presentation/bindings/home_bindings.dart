@@ -26,7 +26,8 @@ class HomeBindings implements Bindings {
         HomeRepositoryImpl(datasource: Get.find<HomeDataSource>(), info: info));
     Get.lazyPut<HomeCategoryUsecase>(
         () => HomeCategoryUsecase(repo: Get.find<HomeRepository>()));
-    Get.lazyPut<MovieDetailDatasource>(() => MovieDetailDatasourceImpl());
+    Get.lazyPut<MovieDetailDatasource>(
+        () => MovieDetailDatasourceImpl(client: Client()));
     Get.lazyPut<MovieDetailRepo>(() => MovieDetailRepoImpl(
         datasource: Get.find<MovieDetailDatasource>(), info: info));
     Get.lazyPut<MovieDetailUsecase>(

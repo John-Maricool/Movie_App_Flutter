@@ -20,9 +20,8 @@ class MovieDetailUsecaseImpl implements MovieDetailUsecase {
   MovieDetailUsecaseImpl({required this.repo});
 
   @override
-  getMovieDetail(
-      int id, Function(Either<Failure, Result<MovieDetail>> b) res) async {
-    await repo.getMovieDetail("movie", id).then(
+  getMovieDetail(int id, Function(Either<Failure, Result<MovieDetail>> b) res) {
+    repo.getMovieDetail("movie", id).then(
         (value) => res.call(value as Either<Failure, Result<MovieDetail>>));
   }
 

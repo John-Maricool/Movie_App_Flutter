@@ -53,7 +53,7 @@ class TvDetailScreen extends StatelessWidget {
                 }
                 return Container();
               }),
-              const Padding(padding: EdgeInsets.all(15)),
+              const Padding(padding: EdgeInsets.all(10)),
               Obx(() {
                 if (_controller.state2 is FinishedState) {
                   return Padding(
@@ -145,9 +145,7 @@ class TvDetailScreen extends StatelessWidget {
 
   Widget showVideos() {
     if (_controller.data2.isEmpty) {
-      return const Padding(
-        padding: EdgeInsets.all(10),
-      );
+      return Container();
     }
     return Column(
       children: [

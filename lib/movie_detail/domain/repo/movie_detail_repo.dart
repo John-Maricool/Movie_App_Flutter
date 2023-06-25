@@ -28,6 +28,7 @@ class MovieDetailRepoImpl implements MovieDetailRepo {
     if (await info.isConnected) {
       try {
         final result = await datasource.getMovieDetail(id, type);
+        print(result);
         return Right(Result(value: result));
       } on Exception {
         return Left(Failure(error: ServerError()));

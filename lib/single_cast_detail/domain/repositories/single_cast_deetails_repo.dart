@@ -7,7 +7,7 @@ import 'package:movie_app/single_cast_detail/data/datasources/single_cast_detail
 import 'package:movie_app/single_cast_detail/data/models/single_cast_model.dart';
 
 abstract class SingleCastDetailsRepo {
-  Future<Either<Failure, Result<SingleCastModel>>> getCastDetails(double id);
+  Future<Either<Failure, Result<SingleCastModel>>> getCastDetails(int id);
 }
 
 class SingleCastDetailsRepoImpl implements SingleCastDetailsRepo {
@@ -17,7 +17,7 @@ class SingleCastDetailsRepoImpl implements SingleCastDetailsRepo {
 
   @override
   Future<Either<Failure, Result<SingleCastModel>>> getCastDetails(
-      double id) async {
+      int id) async {
     if (await info.isConnected) {
       try {
         final result = await datasource.getCastDetails(id);

@@ -8,8 +8,9 @@ class HomeCategoryUsecase {
   HomeRepository repo;
 
   HomeCategoryUsecase({required this.repo});
+
   getMovieCategory(int page, String type,
-      Function(Either<Failure, Result<List<MovieListItemModel>>> b) res) async {
-    await repo.getMovieCategory(type, page).then((value) => res.call(value));
+      Function(Either<Failure, Result<List<MovieListItemModel>>> b) res) {
+    repo.getMovieCategory(type, page).then((value) => res.call(value));
   }
 }
