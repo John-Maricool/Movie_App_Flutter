@@ -12,7 +12,8 @@ import 'package:movie_app/movie_detail/domain/repo/movie_detail_repo.dart';
 import '../../../home/domain/repo/home_repository_test.mocks.dart';
 import 'movie_detail_repo_test.mocks.dart';
 
-class MovieDetailDatasourceTest extends Mock implements MovieDetailDatasource {}
+class MovieDetailDatasourceTest extends Mock
+    implements MovieDetailDatasource<MovieDetail> {}
 
 class CastsAndVideosDatasourceTest extends Mock
     implements CastsAndVideosDatasource {}
@@ -64,6 +65,7 @@ void main() {
       // Verify the result
       expect(result.isRight, true);
       expect(result.isLeft, false);
+      expect(result.right.value, isA<MovieDetail>());
       expect(result.right.value, movie);
       // Verify the mock invocations
       verify(mockNetworkInfo.isConnected);

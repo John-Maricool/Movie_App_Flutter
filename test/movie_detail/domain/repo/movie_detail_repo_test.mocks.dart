@@ -3,13 +3,14 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:movie_app/movie_detail/data/model/cast.dart' as _i5;
-import 'package:movie_app/movie_detail/data/model/video.dart' as _i4;
+import 'package:movie_app/movie_detail/data/model/cast.dart' as _i6;
+import 'package:movie_app/movie_detail/data/model/movie_detail.dart' as _i2;
+import 'package:movie_app/movie_detail/data/model/video.dart' as _i5;
 
-import 'movie_detail_repo_test.dart' as _i2;
+import 'movie_detail_repo_test.dart' as _i3;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -22,17 +23,27 @@ import 'movie_detail_repo_test.dart' as _i2;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeMovieDetail_0 extends _i1.SmartFake implements _i2.MovieDetail {
+  _FakeMovieDetail_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [MovieDetailDatasourceTest].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMovieDetailDatasourceTest extends _i1.Mock
-    implements _i2.MovieDetailDatasourceTest {
+    implements _i3.MovieDetailDatasourceTest {
   MockMovieDetailDatasourceTest() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<dynamic> getMovieDetail(
+  _i4.Future<_i2.MovieDetail> getMovieDetail(
     int? id,
     String? type,
   ) =>
@@ -44,21 +55,30 @@ class MockMovieDetailDatasourceTest extends _i1.Mock
             type,
           ],
         ),
-        returnValue: _i3.Future<dynamic>.value(),
-      ) as _i3.Future<dynamic>);
+        returnValue: _i4.Future<_i2.MovieDetail>.value(_FakeMovieDetail_0(
+          this,
+          Invocation.method(
+            #getMovieDetail,
+            [
+              id,
+              type,
+            ],
+          ),
+        )),
+      ) as _i4.Future<_i2.MovieDetail>);
 }
 
 /// A class which mocks [CastsAndVideosDatasourceTest].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockCastsAndVideosDatasourceTest extends _i1.Mock
-    implements _i2.CastsAndVideosDatasourceTest {
+    implements _i3.CastsAndVideosDatasourceTest {
   MockCastsAndVideosDatasourceTest() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<List<_i4.Video>> getVideos(
+  _i4.Future<List<_i5.Video>> getVideos(
     int? id,
     String? type,
   ) =>
@@ -70,10 +90,10 @@ class MockCastsAndVideosDatasourceTest extends _i1.Mock
             type,
           ],
         ),
-        returnValue: _i3.Future<List<_i4.Video>>.value(<_i4.Video>[]),
-      ) as _i3.Future<List<_i4.Video>>);
+        returnValue: _i4.Future<List<_i5.Video>>.value(<_i5.Video>[]),
+      ) as _i4.Future<List<_i5.Video>>);
   @override
-  _i3.Future<List<_i5.Cast>> getCast(
+  _i4.Future<List<_i6.Cast>> getCast(
     int? id,
     String? type,
   ) =>
@@ -85,6 +105,6 @@ class MockCastsAndVideosDatasourceTest extends _i1.Mock
             type,
           ],
         ),
-        returnValue: _i3.Future<List<_i5.Cast>>.value(<_i5.Cast>[]),
-      ) as _i3.Future<List<_i5.Cast>>);
+        returnValue: _i4.Future<List<_i6.Cast>>.value(<_i6.Cast>[]),
+      ) as _i4.Future<List<_i6.Cast>>);
 }
