@@ -123,7 +123,7 @@ class HomeScreen extends StatelessWidget {
 
   Widget topRated() {
     return Column(children: [
-      singleListHeader("Upcoming", () {
+      singleListHeader("Top Rated", () {
         _controller.onClose();
         Get.toNamed(MOVIE_CATEGORY_ROUTE, arguments: "top_rated");
       }),
