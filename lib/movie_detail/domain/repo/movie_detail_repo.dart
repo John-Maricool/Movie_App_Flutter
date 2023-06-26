@@ -3,6 +3,7 @@ import 'package:movie_app/core/error_types/error_types.dart';
 import 'package:movie_app/core/failure/failure.dart';
 import 'package:movie_app/core/network/network_info.dart';
 import 'package:movie_app/core/result/result.dart';
+import 'package:movie_app/movie_detail/data/datasource/casts_and_videos_datasource.dart';
 import 'package:movie_app/movie_detail/data/datasource/movie_detail_datasource.dart';
 import 'package:movie_app/movie_detail/data/model/cast.dart';
 import 'package:movie_app/movie_detail/data/model/movie_detail.dart';
@@ -19,8 +20,12 @@ abstract class MovieDetailRepo {
 
 class MovieDetailRepoImpl implements MovieDetailRepo {
   MovieDetailDatasource datasource;
+  CastsAndVideosDatasource datasource2;
   NetworkInfo info;
-  MovieDetailRepoImpl({required this.datasource, required this.info});
+  MovieDetailRepoImpl(
+      {required this.datasource,
+      required this.datasource2,
+      required this.info});
 
   @override
   Future<Either<Failure, Result<MovieDetail>>> getMovieDetail(
@@ -43,7 +48,7 @@ class MovieDetailRepoImpl implements MovieDetailRepo {
       String type, int id) async {
     if (await info.isConnected) {
       try {
-        final result = await datasource.getCast(id, type);
+        final result = await datasource2.getCast(id, type);
         return Right(Result(value: result));
       } on Exception {
         return Left(Failure(error: ServerError()));
@@ -58,7 +63,7 @@ class MovieDetailRepoImpl implements MovieDetailRepo {
       String type, int id) async {
     if (await info.isConnected) {
       try {
-        final result = await datasource.getVideos(id, type);
+        final result = await datasource2.getVideos(id, type);
         return Right(Result(value: result));
       } on Exception {
         return Left(Failure(error: ServerError()));

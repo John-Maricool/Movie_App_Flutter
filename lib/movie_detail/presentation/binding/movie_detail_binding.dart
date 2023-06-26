@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:movie_app/core/network/network_info.dart';
+import 'package:movie_app/movie_detail/data/datasource/casts_and_videos_datasource.dart';
 import 'package:movie_app/movie_detail/data/datasource/movie_detail_datasource.dart';
 import 'package:movie_app/movie_detail/domain/repo/movie_detail_repo.dart';
 import 'package:movie_app/movie_detail/domain/usecases/movie_detail_usease.dart';
@@ -19,8 +20,12 @@ class MovieDetailBinding implements Bindings {
   _getMovieDetailBinding(HttpClient client, NetworkInfo info) {
     Get.lazyPut<MovieDetailDatasource>(
         () => MovieDetailDatasourceImpl(client: Client()));
+    Get.lazyPut<CastsAndVideosDatasource>(
+        () => CastsAndVideosDatasourceImpl(Client()));
     Get.lazyPut<MovieDetailRepo>(() => MovieDetailRepoImpl(
-        datasource: Get.find<MovieDetailDatasource>(), info: info));
+        datasource: Get.find<MovieDetailDatasource>(),
+        datasource2: Get.find<CastsAndVideosDatasource>(),
+        info: info));
     Get.lazyPut<MovieDetailUsecase>(
         () => MovieDetailUsecaseImpl(repo: Get.find<MovieDetailRepo>()));
     Get.lazyPut<MovieDetailController>(() => MovieDetailController(

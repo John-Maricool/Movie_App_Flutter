@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:movie_app/core/constants/string_constants.dart';
 import 'dart:convert';
@@ -10,13 +9,13 @@ abstract class MovieListDataSource {
 }
 
 class MovieListDataSourceImpl implements MovieListDataSource {
-  final HttpClient client;
+  final http.Client client;
 
   MovieListDataSourceImpl({required this.client});
 
   @override
   Future<List<MovieListItemModel>> getMovies(int page) async {
-    final response = await http.get(
+    final response = await client.get(
       Uri.parse("${BASE_URL}discover/movie?api_key=$API_KEY&page=$page"),
     );
 

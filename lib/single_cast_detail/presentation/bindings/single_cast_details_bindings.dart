@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:movie_app/core/network/network_info.dart';
 import 'package:movie_app/single_cast_detail/data/datasources/single_cast_details_datasource.dart';
 import 'package:movie_app/single_cast_detail/domain/repositories/single_cast_deetails_repo.dart';
@@ -10,7 +11,7 @@ class SingleCastDetailsBindings implements Bindings {
   void dependencies() {
     NetworkInfo info = Get.find<NetworkInfo>();
     Get.lazyPut<SingleCastDetailsDatasource>(
-        () => SingleCastDetailsDatasourceImpl());
+        () => SingleCastDetailsDatasourceImpl(Client()));
     Get.lazyPut<SingleCastDetailsRepo>(() => SingleCastDetailsRepoImpl(
         datasource: Get.find<SingleCastDetailsDatasource>(), info: info));
     Get.lazyPut<SingleCastDetailsUsecase>(() =>

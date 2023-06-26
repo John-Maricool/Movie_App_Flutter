@@ -15,7 +15,7 @@ class TvListDataSourceImpl implements TvListDataSource {
 
   @override
   Future<List<MovieListItemModel>> getMovies(int page) async {
-    final response = await http.get(
+    final response = await client.get(
       Uri.parse("${BASE_URL}discover/tv?api_key=$API_KEY&page=$page"),
     );
 

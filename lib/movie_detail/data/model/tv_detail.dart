@@ -27,6 +27,12 @@ class TvDetail implements AbstractMovieDetail {
       required this.genres,
       required this.overview});
 
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is TvDetail && id == other.id;
+  }
+
   TvDetail.empty();
 
   factory TvDetail.toTvModel(Map<String, dynamic> json) {

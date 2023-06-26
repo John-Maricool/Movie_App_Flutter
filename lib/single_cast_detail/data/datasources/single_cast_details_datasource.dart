@@ -4,23 +4,25 @@ import 'package:movie_app/single_cast_detail/data/models/single_cast_model.dart'
 import 'dart:convert';
 import 'package:movie_app/core/constants/string_constants.dart';
 import 'package:http/http.dart' as http;
-import 'package:movie_app/movie_detail/data/model/video.dart';
 
 abstract class SingleCastDetailsDatasource {
   Future<SingleCastModel> getCastDetails(int id);
 }
 
 class SingleCastDetailsDatasourceImpl implements SingleCastDetailsDatasource {
+  final http.Client client;
+
+  SingleCastDetailsDatasourceImpl(this.client);
   @override
   Future<SingleCastModel> getCastDetails(int id) async {
     print("The id is $id");
-    final personDetails = await http.get(
+    final personDetails = await client.get(
       Uri.parse("${BASE_URL}person/$id?api_key=$API_KEY"),
     );
-    final personPics = await http.get(
+    final personPics = await client.get(
       Uri.parse("${BASE_URL}person/$id/images?api_key=$API_KEY"),
     );
-    final personCombinedCredits = await http.get(
+    final personCombinedCredits = await client.get(
       Uri.parse("${BASE_URL}person/$id/combined_credits?api_key=$API_KEY"),
     );
 
