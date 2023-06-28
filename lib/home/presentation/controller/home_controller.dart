@@ -19,8 +19,6 @@ class HomeController extends GetxController {
       (List<MovieListItemModel>.of([])).obs;
   final Rx<MovieDetail> _detail = MovieDetail.empty().obs;
 
-  final RxBool isLast = false.obs;
-  final RxInt currentPage = 1.obs;
   List<MovieListItemModel> get data1 => _data1.value;
   List<MovieListItemModel> get data2 => _data2.value;
   List<MovieListItemModel> get data3 => _data3.value;
@@ -41,7 +39,6 @@ class HomeController extends GetxController {
       if (result.isLeft) {
         _state1.value = ErrorState(errorType: result.left.error);
       } else {
-        //  currentPage.value += 1;
         _data1.value = result.right.value;
         if (_data1.isNotEmpty) {
           _getMovieDetail(_data1[0].id);
@@ -57,7 +54,6 @@ class HomeController extends GetxController {
       if (result.isLeft) {
         _state2.value = ErrorState(errorType: result.left.error);
       } else {
-        //  currentPage.value += 1;
         _data2.value = result.right.value;
         _state2.value = FinishedState();
       }

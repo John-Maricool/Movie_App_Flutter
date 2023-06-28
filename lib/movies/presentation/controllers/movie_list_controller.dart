@@ -1,7 +1,5 @@
 import 'package:get/get.dart';
-import 'package:get/state_manager.dart';
 import 'package:movie_app/movies/domain/usecase/movie_list_usecase.dart';
-
 import '../../../core/state/state.dart';
 import '../../../core/data_model/movei_list_item_model.dart';
 
@@ -15,7 +13,6 @@ class MovieListController extends GetxController {
 
   final RxBool isLast = false.obs;
   final RxInt currentPage = 1.obs;
-  // ignore: invalid_use_of_protected_member
   List<MovieListItemModel> get data => _data.value;
   final _state = const State().obs;
   State get state => _state.value;

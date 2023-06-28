@@ -12,6 +12,12 @@ class SingleCastModel {
       {this.image, this.name, this.role, this.desc, this.images, this.movie});
   SingleCastModel.empty();
 
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is SingleCastModel && name == other.name;
+  }
+
   factory SingleCastModel.fromJson(Map<String, dynamic> json, List<String> pics,
       List<MovieListItemModel> movies) {
     return SingleCastModel(
