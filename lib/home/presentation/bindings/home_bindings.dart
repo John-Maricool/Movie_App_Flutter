@@ -38,7 +38,7 @@ class HomeBindings implements Bindings {
         info: info));
     Get.lazyPut<MovieDetailUsecase>(
         () => MovieDetailUsecaseImpl(repo: Get.find<MovieDetailRepo>()));
-    Get.lazyPut<HomeController>(() => HomeController(
+    Get.lazyPut<HomeControllerImpl>(() => HomeControllerImpl(
         usecase: Get.find<HomeCategoryUsecase>(),
         detailUsecase: Get.find<MovieDetailUsecase>()));
     Get.lazyPut<MovieCategoryController>(

@@ -21,7 +21,7 @@ class MovieDetailUsecaseTest extends Mock implements MovieDetailUsecase {}
 
 @GenerateMocks([HomeCategoryUsecaseTest, MovieDetailUsecaseTest])
 void main() {
-  late HomeController controller;
+  late HomeControllerImpl controller;
   late MockHomeCategoryUsecaseTest mockHomeCategoryUsecase;
   late MockMovieDetailUsecaseTest mockMovieDetailUsecase;
 
@@ -32,7 +32,7 @@ void main() {
   setUp(() {
     mockHomeCategoryUsecase = MockHomeCategoryUsecaseTest();
     mockMovieDetailUsecase = MockMovieDetailUsecaseTest();
-    controller = HomeController(
+    controller = HomeControllerImpl(
       usecase: mockHomeCategoryUsecase,
       detailUsecase: mockMovieDetailUsecase,
     );

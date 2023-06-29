@@ -5,11 +5,17 @@ import 'package:movie_app/home/domain/usecases/home_category_usecase.dart';
 import 'package:movie_app/movie_detail/data/model/movie_detail.dart';
 import 'package:movie_app/movie_detail/domain/usecases/movie_detail_usease.dart';
 
-class HomeController extends GetxController {
+abstract class HomeController {
+  getPopularMovies();
+  getUpcomingMovies();
+  getTopRatedMovies();
+}
+
+class HomeControllerImpl extends GetxController implements HomeController {
   HomeCategoryUsecase usecase;
   MovieDetailUsecase detailUsecase;
 
-  HomeController({required this.usecase, required this.detailUsecase});
+  HomeControllerImpl({required this.usecase, required this.detailUsecase});
 
   final RxList<MovieListItemModel> _data1 =
       (List<MovieListItemModel>.of([])).obs;
@@ -33,6 +39,7 @@ class HomeController extends GetxController {
   State get state2 => _state2.value;
   State get state3 => _state3.value;
 
+  @override
   getPopularMovies() {
     _state1.value = LoadingState();
     usecase.getMovieCategory(1, "popular", (result) {
@@ -48,6 +55,7 @@ class HomeController extends GetxController {
     });
   }
 
+  @override
   getUpcomingMovies() {
     _state2.value = LoadingState();
     usecase.getMovieCategory(1, "upcoming", (result) {
@@ -60,6 +68,7 @@ class HomeController extends GetxController {
     });
   }
 
+  @override
   getTopRatedMovies() {
     _state3.value = LoadingState();
     usecase.getMovieCategory(1, "top_rated", (result) {
@@ -86,7 +95,7 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {
-    Get.delete<HomeController>();
+    Get.delete<HomeControllerImpl>();
     super.onClose();
   }
 }

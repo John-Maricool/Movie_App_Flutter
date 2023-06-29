@@ -12,7 +12,7 @@ import 'package:movie_app/movie_detail/presentation/screens/movie_detail.dart';
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
-  final HomeController _controller = Get.find<HomeController>();
+  final HomeControllerImpl _controller = Get.find<HomeControllerImpl>();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(10),
                       child: Column(children: [
                         const Padding(padding: EdgeInsets.only(top: 10)),
-                        popular(),
+                        popular(_controller),
                         const Padding(padding: EdgeInsets.only(top: 10)),
                         inTheatre(),
                         const Padding(padding: EdgeInsets.only(top: 10)),
@@ -95,25 +95,25 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget popular() {
+  Widget popular(HomeControllerImpl controller) {
     return Column(children: [
       singleListHeader("Popular", () {
-        _controller.onClose();
+        controller.onClose();
         Get.toNamed(MOVIE_CATEGORY_ROUTE, arguments: "popular");
       }),
       const Padding(padding: EdgeInsets.only(top: 5)),
       Obx(() {
-        if (_controller.state1 is FinishedState) {
-          return singleList(_controller.data1, (id, title) {
+        if (controller.state1 is FinishedState) {
+          return singleList(controller.data1, (id, title) {
             Get.toNamed(MOVIE_DETAILS_ROUTE,
                 arguments: MovieDetailArgument(id, title));
-            _controller.onClose();
+            controller.onClose();
           });
         }
-        if (_controller.state1 is LoadingState) {
+        if (controller.state1 is LoadingState) {
           return progressBar();
         }
-        if (_controller.state1 == ErrorState(errorType: InternetError())) {
+        if (controller.state1 == ErrorState(errorType: InternetError())) {
           return noInternet(() {});
         }
         return Container();
