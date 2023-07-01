@@ -10,6 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 Widget singleList(List<Cast> movies) {
   return SizedBox(
+      key: Key("single_list_casts"),
       height: 130,
       child: ListView.separated(
           scrollDirection: Axis.horizontal,
@@ -31,6 +32,7 @@ Widget singleList(List<Cast> movies) {
 
 Widget singleListVideos(List<Video> movies) {
   return SizedBox(
+      key: Key("single_list_video"),
       height: 90,
       child: ListView.separated(
           scrollDirection: Axis.horizontal,
@@ -49,6 +51,7 @@ Widget singleListVideos(List<Video> movies) {
 
 Widget singleVideoImg(VoidCallback onclick, String? img) {
   return GestureDetector(
+      key: Key("single_video_img"),
       onTap: () {
         onclick();
       },

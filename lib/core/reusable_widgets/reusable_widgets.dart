@@ -6,6 +6,7 @@ import '../constant.dart';
 Widget noInternet(VoidCallback startShoppingClicked) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
+    key: Key("no_internet"),
     children: [
       const Icon(
         Icons.signal_wifi_connected_no_internet_4,
@@ -72,10 +73,11 @@ Widget showEmptyResult(BuildContext context) {
 
 Widget progressBar() {
   return const Center(
+      key: Key("progress_bar"),
       child: CircularProgressIndicator(
-    strokeWidth: 2,
-    color: redColor,
-  ));
+        strokeWidth: 2,
+        color: redColor,
+      ));
 }
 
 PreferredSizeWidget customAppBar(

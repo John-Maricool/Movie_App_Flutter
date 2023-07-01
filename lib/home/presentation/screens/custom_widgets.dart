@@ -26,6 +26,7 @@ Widget singleListHeader(String category, VoidCallback onClick) {
 Widget singleList(
     List<MovieListItemModel> movies, Function(int, String) onClick) {
   return SizedBox(
+      key: Key("single_list"),
       height: 150,
       child: ListView.separated(
           scrollDirection: Axis.horizontal,

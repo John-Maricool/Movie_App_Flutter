@@ -11,8 +11,9 @@ import 'package:movie_app/movie_detail/presentation/screens/custom_widgets.dart'
 class MovieDetailScreen extends StatelessWidget {
   MovieDetailScreen({Key? key}) : super(key: key);
 
-  final args = Get.arguments as MovieDetailArgument;
   final MovieDetailController _controller = Get.find<MovieDetailController>();
+
+  final args = MovieDetailArgument(2, "");
 
   @override
   Widget build(BuildContext context) {
@@ -28,128 +29,113 @@ class MovieDetailScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Obx(() {
-                if (_controller.stateDetail is FinishedState) {
-                  MovieDetail detail = _controller.detail as MovieDetail;
-                  return movieDetails(
-                      context,
-                      detail.backdrop_path,
-                      detail.title,
-                      detail.original_language,
-                      detail.runtime.toString(),
-                      detail.release_date,
-                      detail.vote_average,
-                      detail.vote_count,
-                      detail.genres!.map((genre) => genre.name).toList(),
-                      detail.overview);
-                }
-                if (_controller.stateDetail is LoadingState) {
-                  return progressBar();
-                }
-                if (_controller.stateDetail ==
-                    ErrorState(errorType: InternetError())) {
-                  return noInternet(() {});
-                }
-                return Container();
-              }),
+              movieDetails(context),
               const Padding(padding: EdgeInsets.all(15)),
-              Obx(() {
-                if (_controller.state2 is FinishedState) {
-                  return Padding(
-                      padding: EdgeInsets.only(left: 10), child: showVideos());
-                }
-                if (_controller.state2 is LoadingState) {
-                  return progressBar();
-                }
-                if (_controller.state2 ==
-                    ErrorState(errorType: InternetError())) {
-                  return noInternet(() {});
-                }
-                return Container();
-              }),
+              showVideos(),
               const Padding(padding: EdgeInsets.all(15)),
-              Obx(() {
-                if (_controller.state1 is FinishedState) {
-                  return Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: showCasts());
-                }
-                if (_controller.state1 is LoadingState) {
-                  return progressBar();
-                }
-                if (_controller.state1 ==
-                    ErrorState(errorType: InternetError())) {
-                  return noInternet(() {});
-                }
-                return Container();
-              }),
+              showCasts(),
               const Padding(padding: EdgeInsets.all(5)),
             ],
           ),
         ));
   }
 
-  Widget movieDetails(
-      BuildContext context,
-      String? url,
-      String? title,
-      String? language,
-      String? time,
-      String? date,
-      double? rating,
-      int? votes,
-      List<String?> genre,
-      String? desc) {
-    return Column(
-      children: [
-        url != null
-            ? Image.network(
-                url,
-                width: MediaQuery.of(context).size.width,
-                height: 250,
-              )
-            : Container(),
-        movieTitleAndDetails(context, title, language, time, date),
-        genresMovieDetail(genre),
-        ratings(rating, votes),
-        const Padding(padding: EdgeInsets.only(top: 12)),
-        desc != null
-            ? Text(
-                desc,
-                style: const TextStyle(color: whiteColor, fontSize: 15),
-              )
-            : Container()
-      ],
-    );
+  Widget movieDetails(BuildContext context) {
+    return Obx(() {
+      if (_controller.stateDetail is FinishedState) {
+        MovieDetail detail = _controller.detail as MovieDetail;
+        Column(
+          children: [
+            detail.backdrop_path != null
+                ? Image.network(
+                    detail.backdrop_path!,
+                    width: MediaQuery.of(context).size.width,
+                    height: 250,
+                  )
+                : Container(),
+            movieTitleAndDetails(
+                context,
+                detail.title,
+                detail.original_language,
+                detail.runtime.toString(),
+                detail.release_date),
+            genresMovieDetail(
+              detail.genres!.map((genre) => genre.name).toList(),
+            ),
+            ratings(detail.vote_average, detail.vote_count),
+            const Padding(padding: EdgeInsets.only(top: 12)),
+            detail.overview != null
+                ? Text(
+                    detail.overview!,
+                    style: const TextStyle(color: whiteColor, fontSize: 15),
+                  )
+                : Container()
+          ],
+        );
+      }
+      if (_controller.stateDetail is LoadingState) {
+        return progressBar();
+      }
+      if (_controller.stateDetail == ErrorState(errorType: InternetError())) {
+        return noInternet(() {});
+      }
+      return Container();
+    });
   }
 
   Widget showCasts() {
-    return Column(
-      children: [
-        const Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            "CASTS",
-            style: TextStyle(color: whiteColor, fontSize: 16),
-          ),
-        ),
-        singleList(_controller.data1)
-      ],
-    );
+    return Obx(() {
+      if (_controller.state1 is FinishedState) {
+        return Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Column(
+              children: [
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "CASTS",
+                    style: TextStyle(color: whiteColor, fontSize: 16),
+                  ),
+                ),
+                singleList(_controller.data1)
+              ],
+            ));
+      }
+      if (_controller.state1 is LoadingState) {
+        return progressBar();
+      }
+      if (_controller.state1 == ErrorState(errorType: InternetError())) {
+        return noInternet(() {});
+      }
+      return Container();
+    });
   }
 
   Widget showVideos() {
-    return Column(
-      children: [
-        const Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "VIDEOS",
-              style: TextStyle(color: whiteColor, fontSize: 16),
-            )),
-        singleListVideos(_controller.data2)
-      ],
-    );
+    return Obx(() {
+      if (_controller.state2 is FinishedState) {
+        return Padding(
+            padding: EdgeInsets.only(left: 10),
+            child: Column(
+              children: [
+                const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "VIDEOS",
+                      style: TextStyle(color: whiteColor, fontSize: 16),
+                    )),
+                singleListVideos(_controller.data2)
+              ],
+            ));
+      }
+      if (_controller.state2 is LoadingState) {
+        return progressBar();
+      }
+      if (_controller.state2 == ErrorState(errorType: InternetError())) {
+        return noInternet(() {});
+      }
+      return Container();
+    });
   }
 }
 
